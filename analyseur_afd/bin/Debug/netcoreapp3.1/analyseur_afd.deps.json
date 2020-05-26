@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "analyseur_afd/1.0.0": {
+        "runtime": {
+          "analyseur_afd.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "analyseur_afd/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

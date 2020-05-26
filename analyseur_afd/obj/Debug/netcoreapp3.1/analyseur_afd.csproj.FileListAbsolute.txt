@@ -1,0 +1,11 @@
+/home/youssef/RiderProjects/analyseur_afd/analyseur_afd/bin/Debug/netcoreapp3.1/analyseur_afd
+/home/youssef/RiderProjects/analyseur_afd/analyseur_afd/bin/Debug/netcoreapp3.1/analyseur_afd.deps.json
+/home/youssef/RiderProjects/analyseur_afd/analyseur_afd/bin/Debug/netcoreapp3.1/analyseur_afd.runtimeconfig.json
+/home/youssef/RiderProjects/analyseur_afd/analyseur_afd/bin/Debug/netcoreapp3.1/analyseur_afd.runtimeconfig.dev.json
+/home/youssef/RiderProjects/analyseur_afd/analyseur_afd/bin/Debug/netcoreapp3.1/analyseur_afd.dll
+/home/youssef/RiderProjects/analyseur_afd/analyseur_afd/bin/Debug/netcoreapp3.1/analyseur_afd.pdb
+/home/youssef/RiderProjects/analyseur_afd/analyseur_afd/obj/Debug/netcoreapp3.1/analyseur_afd.csprojAssemblyReference.cache
+/home/youssef/RiderProjects/analyseur_afd/analyseur_afd/obj/Debug/netcoreapp3.1/analyseur_afd.AssemblyInfoInputs.cache
+/home/youssef/RiderProjects/analyseur_afd/analyseur_afd/obj/Debug/netcoreapp3.1/analyseur_afd.AssemblyInfo.cs
+/home/youssef/RiderProjects/analyseur_afd/analyseur_afd/obj/Debug/netcoreapp3.1/analyseur_afd.dll
+/home/youssef/RiderProjects/analyseur_afd/analyseur_afd/obj/Debug/netcoreapp3.1/analyseur_afd.pdb
