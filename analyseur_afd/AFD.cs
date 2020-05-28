@@ -78,9 +78,8 @@ namespace analyseur_afd
 
         public int δ(int stateNum, char symbol)
         {
-            // initialize dict
-            Dictionary<int, char> dictionary = new Dictionary<int, char> {{stateNum, symbol}};
-            return 0;
+            int nextState = transitionMap[stateNum][symbol];
+            return nextState;
         }
 
         public static void print(AFD M)
@@ -128,7 +127,13 @@ namespace analyseur_afd
             
             // print transitions
             Console.WriteLine("Transitions:");
-            M.δ(0, 'a');
+            foreach (KeyValuePair<int,Dictionary<char,int>> keyValuePair in M.transitionMap)
+            {
+                foreach (KeyValuePair<char, int> pair in keyValuePair.Value)
+                {
+                    Console.WriteLine("δ({0}, {1}) = {2}", keyValuePair.Key, pair.Key, pair.Value);
+                }
+            }
             
             // print start state
             Console.WriteLine("q₀ = {0}", M.startState);
