@@ -12,12 +12,12 @@ namespace analyseur_afd
         public int startState { get; set; }
         public int noStates { get; set; }
         public string alphabet { get; set; }
-        public Dictionary<Dictionary<int, char>, int> transitionMap;
+        public Dictionary<int, Dictionary<char, int>> transitionMap;
         public int[] finalStates { get; set; }
 
         public AFD() {
         }
-        public AFD(int startState, int noStates, string alphabet, Dictionary<Dictionary<int, char>, int> tMap, 
+        public AFD(int startState, int noStates, string alphabet, Dictionary<int, Dictionary<char, int>> tMap, 
             int[] finalStates)
         {
             this.startState = startState;
@@ -32,23 +32,17 @@ namespace analyseur_afd
             AFD afd;
             string[] lines = File.ReadAllLines(fileName, Encoding.UTF8);
                     
-            Dictionary<Dictionary<int, char>, int> transitionTable = new Dictionary<Dictionary<int, char>, int>();
+            Dictionary<int, Dictionary<char, int>> transitionMap = new Dictionary<int, Dictionary<char, int>>();
 
             for (int i = 5; i <= lines.Length -1; i++)
             {
-                // State state = new State(Int32.Parse(lines[i].Split(' ')[0]), 
-                //     finalStates.Contains(lines[i].Split(' ')[0]));
                 int state = Int32.Parse(lines[i].Split(' ')[0]);
-                        
                 char symbol = Char.Parse(lines[i].Split(' ')[1]);
-
-                // State nextState = new State(Int32.Parse(lines[i].Split(' ')[2]), 
-                //     finalStates.Contains(lines[i].Split(' ')[2]));
                 int nextState = Int32.Parse(lines[i].Split(' ')[2]);
                         
-                Dictionary<int, char> dict = new Dictionary<int, char>();
-                dict.Add(state, symbol);
-                transitionTable.Add(dict, nextState);
+                Dictionary<char, int> dict = new Dictionary<char, int>();
+                dict.Add(symbol, nextState);
+                transitionMap.Add(state, dict);
             }
 
             // instanciate DFA class
@@ -59,7 +53,7 @@ namespace analyseur_afd
             string[] finalStatesAsString = lines[4].Split(' ');
             int[] finalStates = Array.ConvertAll(finalStatesAsString, int.Parse);
 
-            afd = new AFD(startState, noStates, alphabet, transitionTable, finalStates);
+            afd = new AFD(startState, noStates, alphabet, transitionMap, finalStates);
             return afd;
         }
 
@@ -67,25 +61,20 @@ namespace analyseur_afd
         {
             // initialize dict
             Dictionary<int, char> dictionary = new Dictionary<int, char> {{stateNum, symbol}};
-            var first = dictionary.First();
-            if (this.transitionMap.ContainsKey(first))
-            {
-                
-            }
             return 0;
         }
 
         public static void print(AFD M)
         {
             List<int> states = new List<int>();
-            foreach (KeyValuePair<Dictionary<int,char>,int> keyValuePair in M.transitionMap)
+            foreach (KeyValuePair<int, Dictionary<char, int>> keyValuePair in M.transitionMap)
             {
-                foreach (KeyValuePair<int,char> pair in keyValuePair.Key)
+                foreach (KeyValuePair<char, int> pair in keyValuePair.Value)
                 {
-                    if (states.IndexOf(pair.Key) == -1)
-                        states.Add(pair.Key);
-                    if (states.IndexOf(keyValuePair.Value) == -1)
-                        states.Add(keyValuePair.Value);
+                    if (states.IndexOf(pair.Value) == -1)
+                        states.Add(pair.Value);
+                    if (states.IndexOf(keyValuePair.Key) == -1)
+                        states.Add(keyValuePair.Key);
                     Console.WriteLine("{0} -> {1} -> {2}", pair.Key, pair.Value, keyValuePair.Value);
                 }
             }
