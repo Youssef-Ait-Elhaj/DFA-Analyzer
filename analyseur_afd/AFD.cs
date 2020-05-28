@@ -9,14 +9,14 @@ namespace analyseur_afd
 {
     public class AFD
     {
-        public State startState { get; set; }
+        public int startState { get; set; }
         public int noStates { get; set; }
         public string alphabet { get; set; }
         public Dictionary<Dictionary<int, char>, int> transitionMap;
 
         public AFD() {
         }
-        public AFD(State startState, int noStates, string alphabet, Dictionary<Dictionary<int, char>, int> tMap, 
+        public AFD(int startState, int noStates, string alphabet, Dictionary<Dictionary<int, char>, int> tMap, 
             int[] finalStates)
         {
             this.startState = startState;
@@ -30,20 +30,21 @@ namespace analyseur_afd
             AFD afd;
             string[] lines = File.ReadAllLines(fileName, Encoding.UTF8);
                     
-            string[] finalStates = lines[4].Split(' ');
             Dictionary<Dictionary<int, char>, int> transitionTable = new Dictionary<Dictionary<int, char>, int>();
 
             for (int i = 5; i <= lines.Length -1; i++)
             {
-                State state = new State(Int32.Parse(lines[i].Split(' ')[0]), 
-                    finalStates.Contains(lines[i].Split(' ')[0]));
+                // State state = new State(Int32.Parse(lines[i].Split(' ')[0]), 
+                //     finalStates.Contains(lines[i].Split(' ')[0]));
+                int state = Int32.Parse(lines[i].Split(' ')[0]);
                         
                 char symbol = Char.Parse(lines[i].Split(' ')[1]);
 
-                State nextState = new State(Int32.Parse(lines[i].Split(' ')[2]), 
-                    finalStates.Contains(lines[i].Split(' ')[2]));
+                // State nextState = new State(Int32.Parse(lines[i].Split(' ')[2]), 
+                //     finalStates.Contains(lines[i].Split(' ')[2]));
+                int nextState = Int32.Parse(lines[i].Split(' ')[2]);
                         
-                Dictionary<State, char> dict = new Dictionary<State, char>();
+                Dictionary<int, char> dict = new Dictionary<int, char>();
                 dict.Add(state, symbol);
                 transitionTable.Add(dict, nextState);
             }
@@ -51,9 +52,13 @@ namespace analyseur_afd
             // instanciate DFA class
             int noStates = Int32.Parse(lines[0]);
             string alphabet = lines[1];
-            State startState =  new State(Int32.Parse(lines[2]), finalStates.Contains(lines[2]));
+            // State startState =  new State(Int32.Parse(lines[2]), finalStates.Contains(lines[2]));
+            int startState = Int32.Parse(lines[2]);    // parse start state from file
+            string[] finalStatesAsString = lines[4].Split(' ');
+            int[] finalStates = Array.ConvertAll(finalStatesAsString, int.Parse);
+            Console.WriteLine("num of final states {0}", finalStates.Length);
 
-            afd = new AFD(startState, noStates, alphabet, transitionTable);
+            afd = new AFD(startState, noStates, alphabet, transitionTable, finalStates);
             return afd;
             
                     // access map elements
@@ -70,21 +75,22 @@ namespace analyseur_afd
         {
             // initialize dict
             Dictionary<int, char> dictionary = new Dictionary<int, char> {{stateNum, symbol}};
-            if (transitionMap.ContainsKey(dictionary))
+            // if (transitionMap.ContainsKey(dictionary))
+            return 0;
         }
 
         public static void print(AFD M)
         {
             List<int> states = new List<int>();
-            foreach (KeyValuePair<Dictionary<State,char>,State> keyValuePair in M.transitionMap)
+            foreach (KeyValuePair<Dictionary<int,char>,int> keyValuePair in M.transitionMap)
             {
-                foreach (KeyValuePair<State,char> pair in keyValuePair.Key)
+                foreach (KeyValuePair<int,char> pair in keyValuePair.Key)
                 {
-                    if (states.IndexOf(pair.Key.num) == -1)
-                        states.Add(pair.Key.num);
-                    if (states.IndexOf(keyValuePair.Value.num) == -1)
-                        states.Add(keyValuePair.Value.num);
-                    // Console.WriteLine("{0} -> {1} -> {2}", pair.Key.num, pair.Value, keyValuePair.Value.num);
+                    if (states.IndexOf(pair.Key) == -1)
+                        states.Add(pair.Key);
+                    if (states.IndexOf(keyValuePair.Value) == -1)
+                        states.Add(keyValuePair.Value);
+                    Console.WriteLine("{0} -> {1} -> {2}", pair.Key, pair.Value, keyValuePair.Value);
                 }
             }
 
