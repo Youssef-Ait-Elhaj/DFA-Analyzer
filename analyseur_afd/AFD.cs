@@ -82,6 +82,27 @@ namespace analyseur_afd
             return nextState;
         }
 
+        public static bool accept(AFD M, string w)
+        {
+            bool res;
+            char[] letters = w.ToCharArray();
+            int state = M.startState;
+
+            for (int i = 0; i < letters.Length; i++)
+            {
+                int nextState = M.δ(state, letters[i]);
+                state = nextState;
+            }
+            Console.WriteLine("last state: {0}", state);
+
+            if (M.finalStates.Contains(state))
+                res = true;
+            else
+                res = false;
+                
+            return res;
+        }
+        
         public static void print(AFD M)
         {
             List<int> states = new List<int>();
@@ -151,7 +172,7 @@ namespace analyseur_afd
                     counter++;
                 }
             }
-            Console.Write("} ");
+            Console.WriteLine("} ");
         }
     }
 }
