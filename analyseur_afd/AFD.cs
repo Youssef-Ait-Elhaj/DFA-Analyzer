@@ -83,72 +83,71 @@ namespace analyseur_afd
             return 0;
         }
 
-        // public static void print(AFD M)
-        // {
-        //     List<int> states = new List<int>();
-        //     foreach (KeyValuePair<int, Dictionary<char, int>> keyValuePair in M.transitionMap)
-        //     {
-        //         foreach (KeyValuePair<char, int> pair in keyValuePair.Value)
-        //         {
-        //             if (states.IndexOf(pair.Value) == -1)
-        //                 states.Add(pair.Value);
-        //             if (states.IndexOf(keyValuePair.Key) == -1)
-        //                 states.Add(keyValuePair.Key);
-        //             Console.WriteLine("{0} -> {1} -> {2}", pair.Key, pair.Value, keyValuePair.Value);
-        //         }
-        //     }
-        //
-        //     // print E
-        //     int counter = 1;
-        //     Console.Write("E = {");
-        //     foreach (int state in states)
-        //     {
-        //         Console.Write(state);
-        //         if (counter < states.Count)
-        //         {
-        //             Console.Write(", ");
-        //             counter++;
-        //         }
-        //     }
-        //     Console.Write("} ");
-        //
-        //     // print alphabet A
-        //     counter = 1;
-        //     char[] alphabet = M.alphabet.ToCharArray();
-        //     Console.Write("A = {");
-        //     foreach (char c in alphabet)
-        //     {
-        //         Console.Write(c);
-        //         if (counter < alphabet.Length)
-        //         {
-        //             Console.Write(", ");
-        //             counter++;
-        //         }
-        //     }
-        //     Console.WriteLine("}");
-        //     
-        //     // print transitions
-        //     Console.WriteLine("Transitions:");
-        //     M.δ(0, 'a');
-        //     
-        //     // print start state
-        //     Console.WriteLine("q₀ = {0}", M.startState);
-        //     
-        //     // print final states
-        //     counter = 1;
-        //     int[] finalStates = M.finalStates;
-        //     Console.Write("F = {");
-        //     foreach (int finalState in finalStates)
-        //     {
-        //         Console.Write(finalState);
-        //         if (counter < finalStates.Length)
-        //         {
-        //             Console.Write(", ");
-        //             counter++;
-        //         }
-        //     }
-        //     Console.Write("} ");
-        // }
+        public static void print(AFD M)
+        {
+            List<int> states = new List<int>();
+            foreach (KeyValuePair<int, Dictionary<char, int>> keyValuePair in M.transitionMap)
+            {
+                foreach (KeyValuePair<char, int> pair in keyValuePair.Value)
+                {
+                    if (states.IndexOf(pair.Value) == -1)
+                        states.Add(pair.Value);
+                    if (states.IndexOf(keyValuePair.Key) == -1)
+                        states.Add(keyValuePair.Key);
+                }
+            }
+        
+            // print E
+            int counter = 1;
+            Console.Write("E = {");
+            foreach (int state in states)
+            {
+                Console.Write(state);
+                if (counter < states.Count)
+                {
+                    Console.Write(", ");
+                    counter++;
+                }
+            }
+            Console.Write("} ");
+        
+            // print alphabet A
+            counter = 1;
+            char[] alphabet = M.alphabet.ToCharArray();
+            Console.Write("A = {");
+            foreach (char c in alphabet)
+            {
+                Console.Write(c);
+                if (counter < alphabet.Length)
+                {
+                    Console.Write(", ");
+                    counter++;
+                }
+            }
+            Console.WriteLine("}");
+            
+            // print transitions
+            Console.WriteLine("Transitions:");
+            M.δ(0, 'a');
+            
+            // print start state
+            Console.WriteLine("q₀ = {0}", M.startState);
+            
+            // print final states
+            counter = 1;
+            int[] finalStates = M.finalStates;
+            Console.Write("F = {");
+            foreach (int finalState in finalStates)
+            {
+                Console.Write(finalState);
+                if (counter < finalStates.Length)
+                {
+                    Console.Write(", ");
+                    counter++;
+                }
+            }
+            Console.Write("} ");
+        }
     }
 }
     
