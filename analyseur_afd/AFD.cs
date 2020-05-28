@@ -13,6 +13,7 @@ namespace analyseur_afd
         public int noStates { get; set; }
         public string alphabet { get; set; }
         public Dictionary<Dictionary<int, char>, int> transitionMap;
+        public int[] finalStates { get; set; }
 
         public AFD() {
         }
@@ -23,6 +24,7 @@ namespace analyseur_afd
             this.alphabet = alphabet;
             this.noStates = noStates;
             this.transitionMap = tMap;
+            this.finalStates = finalStates;
         }
         
         public static AFD read(string fileName)
@@ -52,30 +54,24 @@ namespace analyseur_afd
             // instanciate DFA class
             int noStates = Int32.Parse(lines[0]);
             string alphabet = lines[1];
-            // State startState =  new State(Int32.Parse(lines[2]), finalStates.Contains(lines[2]));
+            
             int startState = Int32.Parse(lines[2]);    // parse start state from file
             string[] finalStatesAsString = lines[4].Split(' ');
             int[] finalStates = Array.ConvertAll(finalStatesAsString, int.Parse);
-            Console.WriteLine("num of final states {0}", finalStates.Length);
 
             afd = new AFD(startState, noStates, alphabet, transitionTable, finalStates);
             return afd;
-            
-                    // access map elements
-                    // foreach (KeyValuePair<Dictionary<State,char>,State> keyValuePair in transitionTable)
-                    // {
-                    //     foreach (KeyValuePair<State,char> pair in keyValuePair.Key)
-                    //     {
-                    //         Console.WriteLine("{0} -> {1} -> {2}", pair.Key.num, pair.Value, keyValuePair.Value.num);
-                    //     }
-                    // }
         }
 
         public int δ(int stateNum, char symbol)
         {
             // initialize dict
             Dictionary<int, char> dictionary = new Dictionary<int, char> {{stateNum, symbol}};
-            // if (transitionMap.ContainsKey(dictionary))
+            var first = dictionary.First();
+            if (this.transitionMap.ContainsKey(first))
+            {
+                
+            }
             return 0;
         }
 
@@ -124,7 +120,26 @@ namespace analyseur_afd
             Console.WriteLine("}");
             
             // print transitions
+            Console.WriteLine("Transitions:");
+            M.δ(0, 'a');
             
+            // print start state
+            Console.WriteLine("q₀ = {0}", M.startState);
+            
+            // print final states
+            counter = 1;
+            int[] finalStates = M.finalStates;
+            Console.Write("F = {");
+            foreach (int finalState in finalStates)
+            {
+                Console.Write(finalState);
+                if (counter < finalStates.Length)
+                {
+                    Console.Write(", ");
+                    counter++;
+                }
+            }
+            Console.Write("} ");
         }
     }
 }
