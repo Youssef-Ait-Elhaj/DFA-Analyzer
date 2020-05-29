@@ -10,7 +10,7 @@ namespace analyseur_afd
             // string fileName = Console.ReadLine();
             AFD afd = AFD.read("/home/youssef/RiderProjects/analyseur_afd/analyseur_afd/test.txt");
             AFD.print(afd);
-            Console.WriteLine(AFD.accept(afd,"abc"));
+            Console.WriteLine(AFD.accept(afd,"ab"));
         }
     }
 }

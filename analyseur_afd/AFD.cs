@@ -78,8 +78,13 @@ namespace analyseur_afd
 
         public int δ(int stateNum, char symbol)
         {
-            int nextState = transitionMap[stateNum][symbol];
-            return nextState;
+            if (transitionMap.ContainsKey(stateNum))
+            {
+                int nextState = transitionMap[stateNum][symbol];
+                return nextState;
+            }
+            else
+                return 0;
         }
 
         public static bool accept(AFD M, string w)
