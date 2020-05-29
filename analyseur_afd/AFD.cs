@@ -78,13 +78,18 @@ namespace analyseur_afd
 
         public int δ(int stateNum, char symbol)
         {
-            if (transitionMap.ContainsKey(stateNum))
+            int nextState;
+            Dictionary<char, int> transition = new Dictionary<char, int>();
+            if (transitionMap.TryGetValue(stateNum, out transition))
             {
-                int nextState = transitionMap[stateNum][symbol];
-                return nextState;
+                if (transition.ContainsKey(symbol))
+                {
+                    nextState = transitionMap[stateNum][symbol];
+                    return nextState;
+                }
             }
-            else
-                return 0;
+            
+            return 0;
         }
 
         public static bool accept(AFD M, string w)
@@ -98,7 +103,6 @@ namespace analyseur_afd
                 int nextState = M.δ(state, letters[i]);
                 state = nextState;
             }
-            Console.WriteLine("last state: {0}", state);
 
             if (M.finalStates.Contains(state))
                 res = true;

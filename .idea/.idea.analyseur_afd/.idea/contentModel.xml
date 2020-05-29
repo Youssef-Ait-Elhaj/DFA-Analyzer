@@ -19,6 +19,8 @@
           </e>
         </e>
         <e p="test.txt" t="Include" />
+        <e p="test2.txt" t="Include" />
+        <e p="test3.txt" t="Include" />
       </e>
       <e p="analyseur_afd.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
